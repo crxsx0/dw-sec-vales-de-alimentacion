@@ -1,6 +1,7 @@
 {
   "name": "dw-sec-vales-de-alimentacion",
   "version": "1.0.0",
+  "type": "module",
   "description": "Sistema de Emisión y Control de Vales de Alimentación",
   "main": "index.js",
   "scripts": {
