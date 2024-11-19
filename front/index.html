@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Vales</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- sidebar -->
+        <nav
+          class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse"
+          aria-label="Sidebar Navigation"
+        >
+          <div class="position-sticky pt-3">
+            <div class="text-center mb-4">
+              <i
+                class="fas fa-utensils fa-2x text-primary"
+                aria-hidden="true"
+              ></i>
+              <h5 class="mt-2">Sistema de Vales</h5>
+            </div>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#" aria-current="page">
+                  <i class="fas fa-home" aria-hidden="true"></i>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <!--cositas -->
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-ticket-alt"></i>
+                  Mis Vales
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-history"></i>
+                  Historial
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-calendar"></i>
+                  Turnos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-cog"></i>
+                  Configuración
+                </a>
+              </li>
+            </ul>
+
+            <hr class="my-3" />
+
+            <div class="px-3">
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="/api/placeholder/32/32"
+                  class="rounded-circle me-2"
+                  alt="Profile"
+                />
+                <div>
+                  <small class="fw-bold">Juan Pérez</small>
+                  <br />
+                  <small class="text-muted">Turno 1</small>
+                </div>
+              </div>
+              <button class="btn btn-outline-danger btn-sm w-100">
+                <i class="fas fa-sign-out-alt me-1"></i>
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <!-- main -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4 main-content">
+          <!-- header -->
+          <div
+            class="dashboard-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3"
+          >
+            <h1 class="h2">Dashboard</h1>
+            <button class="btn btn-primary">
+              <i class="fas fa-print me-1"></i>
+              Imprimir Vale
+            </button>
+          </div>
+
+          <!-- cards-->
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="card stats-card h-100">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="bg-primary bg-opacity-10 p-3 rounded">
+                        <i class="fas fa-ticket-alt text-primary"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h6 class="card-title mb-1">Vale Actual</h6>
+                      <h3 class="mb-0">Almuerzo</h3>
+                      <small class="text-muted">12:00 - 15:00</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="card stats-card h-100">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="bg-success bg-opacity-10 p-3 rounded">
+                        <i class="fas fa-check text-success"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h6 class="card-title mb-1">Vales Usados</h6>
+                      <h3 class="mb-0">15/20</h3>
+                      <small class="text-muted">Este mes</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="card stats-card h-100">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="bg-info bg-opacity-10 p-3 rounded">
+                        <i class="fas fa-clock text-info"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h6 class="card-title mb-1">Turno Actual</h6>
+                      <h3 class="mb-0">Turno 1</h3>
+                      <small class="text-muted">8:00 - 16:00</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <div class="card stats-card h-100">
+                <div class="card-body">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="bg-warning bg-opacity-10 p-3 rounded">
+                        <i class="fas fa-dollar-sign text-warning"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <h6 class="card-title mb-1">Valor Vale</h6>
+                      <h3 class="mb-0">$5.000</h3>
+                      <small class="text-muted">Almuerzo</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- recent activity-->
+          <div class="row">
+            <div class="col-12 col-xl-8 mb-4">
+              <div class="card h-100">
+                <div
+                  class="card-header d-flex justify-content-between align-items-center"
+                >
+                  <h5 class="card-title mb-0">Actividad Reciente</h5>
+                  <button class="btn btn-sm btn-link">Ver todo</button>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item px-0">
+                      <div class="d-flex align-items-center">
+                        <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                          <i class="fas fa-check text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <h6 class="mb-0">Vale de almuerzo impreso</h6>
+                            <small class="text-muted">12:30</small>
+                          </div>
+                          <small class="text-muted">Casino Central</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <div class="d-flex align-items-center">
+                        <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                          <i class="fas fa-check text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <h6 class="mb-0">Vale de desayuno utilizado</h6>
+                            <small class="text-muted">08:15</small>
+                          </div>
+                          <small class="text-muted">Casino Central</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <div class="d-flex align-items-center">
+                        <div class="bg-warning bg-opacity-10 p-2 rounded me-3">
+                          <i class="fas fa-plus text-warning"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <div
+                            class="d-flex justify-content-between align-items-center"
+                          >
+                            <h6 class="mb-0">Vale adicional generado</h6>
+                            <small class="text-muted">Ayer</small>
+                          </div>
+                          <small class="text-muted"
+                            >Autorizado por: Admin</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-4 mb-4">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">Próximas Comidas</h5>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item px-0">
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <div>
+                          <h6 class="mb-0">Almuerzo</h6>
+                          <small class="text-muted">12:00 - 15:00</small>
+                        </div>
+                        <span class="badge bg-primary">Disponible</span>
+                      </div>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <div>
+                          <h6 class="mb-0">Once</h6>
+                          <small class="text-muted">16:00 - 17:00</small>
+                        </div>
+                        <span class="badge bg-secondary">Próximo</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
