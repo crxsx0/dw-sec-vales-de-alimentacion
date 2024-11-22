@@ -1,14 +1,44 @@
-import React from 'react'; // Agrega esta línea
-import { StrictMode } from 'react';
+import React, { useState } from 'react'; 
 import { createRoot } from 'react-dom/client';
-import Navbar from './components/navbar/navbar';
-import MainLayout from './components/mainLayout/mainlayout';
-import Footer from './components/footer/footer';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Login from './pages/login';
+import Dashboard from './pages/dashBoard';
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <Login 
+              onLogin={() => setIsAuthenticated(true)} 
+            />
+          } 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            isAuthenticated ? (
+              <Dashboard 
+                onLogout={() => setIsAuthenticated(false)} 
+              />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Navbar />
-    <MainLayout />
-    <Footer />
-  </StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

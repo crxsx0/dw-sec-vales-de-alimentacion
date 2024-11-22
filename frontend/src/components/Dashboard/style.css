@@ -1,0 +1,11 @@
+
+/* styles.css */
+.width-240 {
+    width: 240px;
+    transition: width 0.3s;
+  }
+
+  .width-80 {
+    width: 80px;
+    transition: width 0.3s;
+  }
