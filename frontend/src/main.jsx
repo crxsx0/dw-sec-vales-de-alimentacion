@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Login from './pages/login';
 import Dashboard from './pages/dashBoard';
+import Settings from './pages/settings';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,6 +32,21 @@ const App = () => {
               <Navigate to="/" replace />
             )
           } 
+        />
+         <Route 
+          path="/settings" 
+          element={
+            isAuthenticated ? (
+              <Settings />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } 
+        />
+        {/* Ruta para manejar URLs no existentes */}
+        <Route 
+          path="*" 
+          element={<Navigate to="/" replace />} 
         />
       </Routes>
     </BrowserRouter>
