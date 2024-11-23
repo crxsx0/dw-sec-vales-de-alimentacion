@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Bell, User, Shield, Moon, Sun, Globe, Key } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Bell, User, Shield, Moon, Sun, Globe, Key, ArrowLeft } from 'lucide-react';
 import '../components/settings/settings.css';
 
 function Settings() {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('profile');
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState({
@@ -25,6 +27,14 @@ function Settings() {
 
     return (
         <div className="settings-container">
+            <button 
+                className="back-button"
+                onClick={() => navigate('/dashboard')}
+            >
+                <ArrowLeft size={20} />
+                Volver al Dashboard
+            </button>
+
             <div className="settings-header">
                 <h1>Configuración</h1>
                 <p>Administra tu cuenta y preferencias del sistema</p>
@@ -98,8 +108,6 @@ function Settings() {
                             </div>
                         </div>
                     )}
-
-                    {/* ... resto del código ... */}
                 </div>
             </div>
         </div>

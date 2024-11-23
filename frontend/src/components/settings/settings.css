@@ -4,6 +4,33 @@
     margin: 0 auto;
 }
 
+/* Nuevos estilos para el botón de retorno */
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #4364F7;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: #f8f9fa;
+    transform: translateX(-4px);
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilos existentes */
 .settings-header {
     margin-bottom: 2rem;
 }
