@@ -1,11 +1,42 @@
 import React, { useState } from 'react'; 
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { 
+  faUtensils, 
+  faCheckCircle, 
+  faClock, 
+  faDollarSign,
+  faHome,
+  faReceipt,
+  faHistory,
+  faCalendar,
+  faCog,
+  faSignOutAlt,
+  faUser,
+  faPrint
+} from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Login from './pages/login';
 import Dashboard from './pages/dashBoard';
 import Settings from './pages/settings';
+
+// Agregar los íconos a la biblioteca de Font Awesome
+library.add(
+  faUtensils, 
+  faCheckCircle, 
+  faClock, 
+  faDollarSign,
+  faHome,
+  faReceipt,
+  faHistory,
+  faCalendar,
+  faCog,
+  faSignOutAlt,
+  faUser,
+  faPrint
+);
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

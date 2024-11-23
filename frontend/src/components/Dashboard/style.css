@@ -198,25 +198,7 @@ aside.width-80 + main {
   border-radius: 0.25rem;
 }
 
-.bg-primary {
-  background-color: #0d6efd !important;
-}
 
-.bg-secondary {
-  background-color: #6c757d !important;
-}
-
-.bg-success {
-  background-color: #198754 !important;
-}
-
-.bg-warning {
-  background-color: #ffc107 !important;
-}
-
-.bg-info {
-  background-color: #0dcaf0 !important;
-}
 
 /* Opacidad de fondo */
 .bg-opacity-10 {
@@ -282,30 +264,7 @@ aside.width-80 + main {
   }
 }
 
-/* Textos */
-.text-muted {
-  color: #6c757d !important;
-}
 
-.text-primary {
-  color: #0d6efd !important;
-}
-
-.text-success {
-  color: #198754 !important;
-}
-
-.text-warning {
-  color: #ffc107 !important;
-}
-
-.text-info {
-  color: #0dcaf0 !important;
-}
-
-.text-danger {
-  color: #dc3545 !important;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -320,49 +279,4 @@ aside.width-80 + main {
   main {
       margin-left: 0 !important;
   }
-}
-/* Iconos de navegación */
-.icon-almuerzo {
-  background-image: url('../assets/icons/utensils.svg');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-.icon-vales-usados {
-  background-image: url('../assets/icons/check-circle.svg');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-.icon-turno-actual {
-  background-image: url('../assets/icons/clock.svg');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-.icon-valor-vale {
-  background-image: url('../assets/icons/dollar-sign.svg');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-
-.icon-vale-impreso {
-  background-image: url('../assets/icons/printer.svg');
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
 }
