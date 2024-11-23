@@ -5,7 +5,7 @@ import '../../styles/global.css';
 
 function Settings() {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTabs] = useState('profile');
     const [darkMode, setDarkMode] = useState(false);
     const [notifications, setNotifications] = useState({
         email: true,
