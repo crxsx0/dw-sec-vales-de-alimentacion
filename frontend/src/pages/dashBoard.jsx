@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../components/Dashboard/style.css';
 
-const Dashboard = ({ onLogout }) => {
+const Dashboard = ({ onLogout, isAuthenticated }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
@@ -67,7 +67,11 @@ const Dashboard = ({ onLogout }) => {
                 </a>
               </li>
               <li className="nav-item">
-                <a href="#" className="nav-link d-flex align-items-center p-2 rounded">
+                <a 
+                  onClick={() => navigate('/settings')} 
+                  className="nav-link d-flex align-items-center p-2 rounded"
+                  style={{ cursor: 'pointer' }}
+                >
                   <FontAwesomeIcon icon="cog" />
                   {sidebarOpen && <span className="ms-3">Configuración</span>}
                 </a>

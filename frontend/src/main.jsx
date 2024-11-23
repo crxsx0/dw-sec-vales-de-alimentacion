@@ -14,7 +14,8 @@ import {
   faCog,
   faSignOutAlt,
   faUser,
-  faPrint
+  faPrint,
+  faBars
 } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -35,7 +36,8 @@ library.add(
   faCog,
   faSignOutAlt,
   faUser,
-  faPrint
+  faPrint,
+  faBars
 );
 
 const App = () => {
@@ -58,23 +60,26 @@ const App = () => {
             isAuthenticated ? (
               <Dashboard 
                 onLogout={() => setIsAuthenticated(false)} 
+                isAuthenticated={isAuthenticated}
               />
             ) : (
               <Navigate to="/" replace />
             )
           } 
         />
-         <Route 
+        <Route 
           path="/settings" 
           element={
             isAuthenticated ? (
-              <Settings />
+              <Settings 
+                isAuthenticated={isAuthenticated}
+                onLogout={() => setIsAuthenticated(false)}
+              />
             ) : (
               <Navigate to="/" replace />
             )
           } 
         />
-        {/* Ruta para manejar URLs no existentes */}
         <Route 
           path="*" 
           element={<Navigate to="/" replace />} 
