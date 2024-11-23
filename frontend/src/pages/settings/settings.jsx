@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bell, User, Shield, Moon, Sun, Globe, Key, ArrowLeft } from 'lucide-react';
-import '../components/settings/settings.css';
+import '../../styles/global.css';
 
 function Settings() {
     const navigate = useNavigate();

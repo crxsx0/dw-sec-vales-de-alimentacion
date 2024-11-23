@@ -1,65 +1,44 @@
-import React, { useState } from 'react'; 
+// src/main.jsx
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { 
-  faUtensils, 
-  faCheckCircle, 
-  faClock, 
-  faDollarSign,
-  faHome,
-  faReceipt,
-  faHistory,
-  faCalendar,
-  faCog,
-  faSignOutAlt,
-  faUser,
-  faPrint,
-  faBars
-} from '@fortawesome/free-solid-svg-icons';
+
+// Estilos
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Login from './pages/login';
-import Dashboard from './pages/dashBoard';
-import Settings from './pages/settings';
+import './styles/global.css';
 
-// Agregar los íconos a la biblioteca de Font Awesome
-library.add(
-  faUtensils, 
-  faCheckCircle, 
-  faClock, 
-  faDollarSign,
-  faHome,
-  faReceipt,
-  faHistory,
-  faCalendar,
-  faCog,
-  faSignOutAlt,
-  faUser,
-  faPrint,
-  faBars
-);
+// Configuración
+import { setupFontAwesome } from './utils/fontawesome';
 
+// Componentes
+import Login from './pages/login/Login';
+import Dashboard from './pages/dashboard/dashBoard';
+import Settings from './pages/settings/settings';
+
+// Inicializar FontAwesome
+setupFontAwesome();
+
+// Componente principal
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => setIsAuthenticated(true);
+  const handleLogout = () => setIsAuthenticated(false);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route 
           path="/" 
-          element={
-            <Login 
-              onLogin={() => setIsAuthenticated(true)} 
-            />
-          } 
+          element={<Login onLogin={handleLogin} />} 
         />
         <Route 
           path="/dashboard" 
           element={
             isAuthenticated ? (
               <Dashboard 
-                onLogout={() => setIsAuthenticated(false)} 
+                onLogout={handleLogout}
                 isAuthenticated={isAuthenticated}
               />
             ) : (
@@ -73,7 +52,7 @@ const App = () => {
             isAuthenticated ? (
               <Settings 
                 isAuthenticated={isAuthenticated}
-                onLogout={() => setIsAuthenticated(false)}
+                onLogout={handleLogout}
               />
             ) : (
               <Navigate to="/" replace />
@@ -89,6 +68,7 @@ const App = () => {
   );
 };
 
+// Renderizado de la aplicación
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
