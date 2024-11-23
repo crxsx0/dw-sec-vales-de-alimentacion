@@ -2,16 +2,18 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../styles/global.css';
 
-const Sidebar = ({ isCollapsed }) => {
+const Sidebar = () => {  // Removemos isCollapsed de los props
   const location = useLocation();
   const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);  // Añadimos el estado aquí
 
   const menuItems = [
     {
       title: 'Dashboard',
       icon: 'home',
-      path: '/dashboard'
+      path: '/dashboard',
     },
     {
       title: 'Gestión de Vales',
@@ -58,6 +60,7 @@ const Sidebar = ({ isCollapsed }) => {
       icon: 'cog',
       path: '/settings'
     }
+    // ... resto de menuItems igual ...
   ];
 
   const toggleSubmenu = (index) => {
@@ -66,6 +69,14 @@ const Sidebar = ({ isCollapsed }) => {
 
   const isActive = (path) => {
     return location.pathname === path;
+  };
+
+  // Función para manejar el clic en Dashboard
+  const handleDashboardClick = (e) => {
+    if (location.pathname === '/dashboard') {
+      e.preventDefault(); // Prevenir navegación si ya estamos en Dashboard
+    }
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
@@ -91,7 +102,11 @@ const Sidebar = ({ isCollapsed }) => {
                   )}
                 </button>
               ) : (
-                <Link to={item.path} className={`nav-link ${isActive(item.path) ? 'active' : ''}`}>
+                <Link 
+                  to={item.path} 
+                  className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                  onClick={item.title === 'Dashboard' ? handleDashboardClick : undefined}  // Añadimos el onClick solo para Dashboard
+                >
                   <FontAwesomeIcon icon={item.icon} className="menu-icon" />
                   {!isCollapsed && <span className="ms-2">{item.title}</span>}
                 </Link>
@@ -114,6 +129,19 @@ const Sidebar = ({ isCollapsed }) => {
           </React.Fragment>
         ))}
       </ul>
+      <div className="user-box">
+        <div className="user-box-content">
+          <div className="user-avatar">
+            U
+          </div>
+          {!isCollapsed && (
+            <div className="user-info">
+              <div className="user-name">Usuario Demo</div>
+              <div className="user-role">Administrador</div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
