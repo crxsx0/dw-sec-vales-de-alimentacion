@@ -1,145 +1,152 @@
 // src/components/layout/Sidebar.jsx
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../../styles/global.css';
+import { 
+  faHome, 
+  faTicketAlt, 
+  faUsers, 
+  faCog, 
+  faSignOutAlt,
+  faUtensils,
+  faChartBar,
+  faPrint,
+  faUserCog,
+  faChevronLeft,  // Añade este icono
+  faChevronRight  // Y este icono
+} from '@fortawesome/free-solid-svg-icons';
 
-const Sidebar = () => {  // Removemos isCollapsed de los props
+const Sidebar = ({ isCollapsed, onLogout, toggleSidebar }) => { // Añade toggleSidebar como prop
+  const navigate = useNavigate();
   const location = useLocation();
-  const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const [isCollapsed, setIsCollapsed] = useState(false);  // Añadimos el estado aquí
 
-  const menuItems = [
+
+    // ... resto de los items del menú ...
+ const menuItems = [
     {
       title: 'Dashboard',
-      icon: 'home',
-      path: '/dashboard',
+      path: '/dashboard', // Cambiado de '/' a '/dashboard'
+      icon: faHome
+    },
+    {
+      title: 'Emisión de Vales',
+      path: '/emision-vales',
+      icon: faPrint
     },
     {
       title: 'Gestión de Vales',
-      icon: 'ticket',
-      path: '/vales',
-      submenu: [
-        { title: 'Crear Vale', path: '/vales/create', icon: 'plus' },
-        { title: 'Lista de Vales', path: '/vales/list', icon: 'list' },
-        { title: 'Historial', path: '/vales/history', icon: 'history' }
-      ]
+      path: '/gestion-vales',
+      icon: faTicketAlt
     },
     {
-      title: 'Beneficiarios',
-      icon: 'users',
-      path: '/beneficiaries',
-      submenu: [
-        { title: 'Registro', path: '/beneficiaries/register', icon: 'user-plus' },
-        { title: 'Lista', path: '/beneficiaries/list', icon: 'address-book' },
-        { title: 'Asignaciones', path: '/beneficiaries/assignments', icon: 'tasks' }
-      ]
+      title: 'Servicios',
+      path: '/servicios',
+      icon: faUtensils
     },
     {
-      title: 'Comercios',
-      icon: 'store',
-      path: '/commerce',
-      submenu: [
-        { title: 'Registrar Comercio', path: '/commerce/register', icon: 'plus-square' },
-        { title: 'Comercios Afiliados', path: '/commerce/list', icon: 'building' },
-        { title: 'Transacciones', path: '/commerce/transactions', icon: 'exchange-alt' }
-      ]
+      title: 'Usuarios',
+      path: '/usuarios',
+      icon: faUsers
     },
     {
       title: 'Reportes',
-      icon: 'chart-bar',
-      path: '/reports',
-      submenu: [
-        { title: 'Estadísticas', path: '/reports/stats', icon: 'chart-line' },
-        { title: 'Informes Mensuales', path: '/reports/monthly', icon: 'calendar-alt' },
-        { title: 'Auditoría', path: '/reports/audit', icon: 'file-alt' }
-      ]
+      path: '/reportes',
+      icon: faChartBar
     },
     {
-      title: 'Settings',
-      icon: 'cog',
-      path: '/settings'
+      title: 'Perfiles',
+      path: '/perfiles',
+      icon: faUserCog
+    },
+    {
+      title: 'Configuración',
+      path: '/settings',  // Actualizado para coincidir con tu ruta actual
+      icon: faCog
     }
-    // ... resto de menuItems igual ...
   ];
 
-  const toggleSubmenu = (index) => {
-    setActiveSubmenu(activeSubmenu === index ? null : index);
-  };
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
-
-  // Función para manejar el clic en Dashboard
-  const handleDashboardClick = (e) => {
-    if (location.pathname === '/dashboard') {
-      e.preventDefault(); // Prevenir navegación si ya estamos en Dashboard
-    }
-    setIsCollapsed(!isCollapsed);
-  };
 
   return (
-    <div className={`sidebar bg-light ${isCollapsed ? 'collapsed' : ''}`}>
-      <ul className="nav flex-column">
-        {menuItems.map((item, index) => (
-          <React.Fragment key={item.path}>
-            <li className={`nav-item ${isActive(item.path) ? 'active' : ''}`}>
-              {item.submenu ? (
-                <button
-                  className={`nav-link menu-button ${activeSubmenu === index ? 'active' : ''}`}
-                  onClick={() => !isCollapsed && toggleSubmenu(index)}
+    <div 
+      className={`sidebar bg-white shadow-sm ${isCollapsed ? 'collapsed' : ''}`}
+      style={{
+        width: isCollapsed ? '70px' : '260px',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        transition: 'width 0.3s ease',
+        zIndex: 1000,
+        overflowY: 'auto',
+        overflowX: 'hidden'
+      }}
+    >
+      <div className="d-flex flex-column h-100">
+        {/* Logo y botón de colapso */}
+        <div className="p-3 border-bottom d-flex align-items-center justify-content-between">
+          {!isCollapsed && (
+            <h5 className="m-0">Sistema de Vales</h5>
+          )}
+          <button
+            className="btn btn-link p-0 text-dark border-0"
+            onClick={toggleSidebar}
+            style={{
+              marginLeft: isCollapsed ? 'auto' : '0',
+              marginRight: isCollapsed ? 'auto' : '0'
+            }}
+          >
+            <FontAwesomeIcon 
+              icon={isCollapsed ? faChevronRight : faChevronLeft} 
+              className="fs-5"
+            />
+          </button>
+        </div>
+
+        {/* Resto del contenido del Sidebar */}
+        <div className="flex-grow-1">
+          <ul className="nav flex-column p-2">
+            {menuItems.map((item, index) => (
+              <li key={index} className="nav-item">
+                <Link
+                  to={item.path}
+                  className={`nav-link d-flex align-items-center py-3 ${
+                    location.pathname === item.path ? 'active text-primary' : 'text-dark'
+                  }`}
                 >
-                  <FontAwesomeIcon icon={item.icon} className="menu-icon" />
-                  {!isCollapsed && (
-                    <>
-                      <span className="ms-2">{item.title}</span>
-                      <FontAwesomeIcon 
-                        icon={activeSubmenu === index ? 'chevron-down' : 'chevron-right'} 
-                        className="submenu-arrow"
-                      />
-                    </>
-                  )}
-                </button>
-              ) : (
-                <Link 
-                  to={item.path} 
-                  className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-                  onClick={item.title === 'Dashboard' ? handleDashboardClick : undefined}  // Añadimos el onClick solo para Dashboard
-                >
-                  <FontAwesomeIcon icon={item.icon} className="menu-icon" />
-                  {!isCollapsed && <span className="ms-2">{item.title}</span>}
+                  <FontAwesomeIcon 
+                    icon={item.icon} 
+                    className={isCollapsed ? 'mx-auto' : 'me-2'} 
+                  />
+                  {!isCollapsed && <span>{item.title}</span>}
                 </Link>
-              )}
-            </li>
-            {!isCollapsed && item.submenu && activeSubmenu === index && (
-              <div className="submenu">
-                {item.submenu.map((subItem) => (
-                  <Link
-                    key={subItem.path}
-                    to={subItem.path}
-                    className={`nav-link submenu-item ${isActive(subItem.path) ? 'active' : ''}`}
-                  >
-                    <FontAwesomeIcon icon={subItem.icon} className="submenu-icon" />
-                    <span className="ms-2">{subItem.title}</span>
-                  </Link>
-                ))}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Sección de usuario */}
+        <div className="border-top p-3">
+          <div className="d-flex align-items-center mb-3">
+            <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                 style={{ width: '40px', height: '40px' }}>
+              <span>Y</span>
+            </div>
+            {!isCollapsed && (
+              <div className="ms-3">
+                <div className="fw-bold">yellow-23</div>
+                <small className="text-muted">Administrador</small>
               </div>
             )}
-          </React.Fragment>
-        ))}
-      </ul>
-      <div className="user-box">
-        <div className="user-box-content">
-          <div className="user-avatar">
-            U
           </div>
-          {!isCollapsed && (
-            <div className="user-info">
-              <div className="user-name">Usuario Demo</div>
-              <div className="user-role">Administrador</div>
-            </div>
-          )}
+          
+          <button
+            onClick={onLogout}
+            className="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center"
+          >
+            <FontAwesomeIcon icon={faSignOutAlt} />
+            {!isCollapsed && <span className="ms-2">Cerrar sesión</span>}
+          </button>
         </div>
       </div>
     </div>

@@ -15,9 +15,23 @@ import { setupFontAwesome } from './utils/fontawesome';
 import Login from './pages/login/Login';
 import Dashboard from './pages/dashboard/dashBoard';
 import Settings from './pages/settings/settings';
+import Layout from './components/layout/layout';
 
 // Inicializar FontAwesome
 setupFontAwesome();
+
+// Componente para rutas protegidas con Layout
+const ProtectedRoute = ({ children, isAuthenticated, onLogout }) => {
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  return (
+    <Layout onLogout={onLogout}>
+      {children}
+    </Layout>
+  );
+};
 
 // Componente principal
 const App = () => {
@@ -33,30 +47,31 @@ const App = () => {
           path="/" 
           element={<Login onLogin={handleLogin} />} 
         />
-        <Route 
-          path="/dashboard" 
-          element={
-            isAuthenticated ? (
-              <Dashboard 
-                onLogout={handleLogout}
-                isAuthenticated={isAuthenticated}
-              />
-            ) : (
-              <Navigate to="/" replace />
-            )
-          } 
-        />
+        // En tu main.jsx, asegúrate de que la ruta raíz redirija al login
+<Route 
+  path="/" 
+  element={<Login onLogin={handleLogin} />} 
+/>
+<Route 
+  path="/dashboard" 
+  element={
+    <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+      <Dashboard 
+        isAuthenticated={isAuthenticated}
+        onLogout={handleLogout}
+      />
+    </ProtectedRoute>
+  } 
+/>
         <Route 
           path="/settings" 
           element={
-            isAuthenticated ? (
+            <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
               <Settings 
                 isAuthenticated={isAuthenticated}
                 onLogout={handleLogout}
               />
-            ) : (
-              <Navigate to="/" replace />
-            )
+            </ProtectedRoute>
           } 
         />
         <Route 

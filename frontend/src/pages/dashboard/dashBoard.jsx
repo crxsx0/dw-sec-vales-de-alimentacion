@@ -1,76 +1,83 @@
 // src/pages/dashboard/Dashboard.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/layout/navBar';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCalendarAlt,
+  faTicketAlt,
+  faChartLine,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons';
+import StatsCards from '../../components/Dashboard/statsCard';
+import MealSchedule from '../../components/Dashboard/MealSchedule';
+import ActivityList from '../../components/Dashboard/activityList';
 import Sidebar from '../../components/layout/sideBar';
-import StatsCard from '../../components/ui/cards/StatsCard';
 
-const Dashboard = ({ onLogout, isAuthenticated }) => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const navigate = useNavigate();
-
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
+const Dashboard = () => {
+  // Datos de ejemplo
+  const estadisticas = {
+    valesEmitidosHoy: 245,
+    valesUtilizadosHoy: 200,
+    empleadosActivos: 500,
+    serviciosDisponibles: 4,
+    valesNoUtilizados: 45,
+    turnoActual: 1
   };
 
-  const statsData = [
-    {
-      icon: "receipt",
-      title: "Vales Emitidos",
-      value: "1,234",
-      text: "Este mes",
-      color: "green"
-    },
-    {
-      icon: "clock",
-      title: "Vales Pendientes",
-      value: "56",
-      text: "Por procesar",
-      color: "blue"
-    },
-    {
-      icon: "dollar-sign",
-      title: "Total en Vales",
-      value: "$45,678",
-      text: "Valor total",
-      color: "purple"
-    },
-    {
-      icon: "check-circle",
-      title: "Vales Completados",
-      value: "789",
-      text: "Este mes",
-      color: "orange"
-    }
-  ];
-
   return (
-    <div className="dashboard-container">
-      <Navbar toggleSidebar={toggleSidebar} />
-      <Sidebar isCollapsed={isSidebarCollapsed} />
-      
-      <main className={`dashboard-main ${isSidebarCollapsed ? 'margin-left-80' : 'margin-left-240'}`}>
-        <div className="dashboard-content">
-          <div className="dashboard-header">
-            <h1>Dashboard</h1>
-            <p>Bienvenido al panel de control</p>
-          </div>
+    <>
+      {/* Título del Dashboard */}
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>Panel de Control</h2>
+        <div className="text-muted">
+          <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
+          {new Date().toLocaleDateString('es-ES', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </div>
+      </div>
 
-          <div className="dashboard-grid">
-            {statsData.map((stat, index) => (
-              <StatsCard
-                key={index}
-                icon={stat.icon}
-                title={stat.title}
-                value={stat.value}
-                text={stat.text}
-                color={stat.color}
-              />
-            ))}
+      {/* Componentes del Dashboard */}
+      <StatsCards estadisticas={estadisticas} />
+
+      <div className="row g-4 mb-4">
+        <div className="col-12 col-lg-6">
+          <MealSchedule turnoActual={estadisticas.turnoActual} />
+        </div>
+        <div className="col-12 col-lg-6">
+          <ActivityList />
+        </div>
+      </div>
+
+      {/* Botones de Acción Rápida */}
+      <div className="row g-4">
+        <div className="col-12">
+          <div className="card border-0 shadow-sm">
+            <div className="card-header bg-white py-3">
+              <h5 className="card-title mb-0">Acciones Rápidas</h5>
+            </div>
+            <div className="card-body">
+              <div className="d-flex gap-2 flex-wrap">
+                <button className="btn btn-primary">
+                  <FontAwesomeIcon icon={faTicketAlt} className="me-2" />
+                  Emitir Vale
+                </button>
+                <button className="btn btn-outline-primary">
+                  <FontAwesomeIcon icon={faChartLine} className="me-2" />
+                  Generar Reporte
+                </button>
+                <button className="btn btn-outline-primary">
+                  <FontAwesomeIcon icon={faUsers} className="me-2" />
+                  Gestionar Usuarios
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 };
 

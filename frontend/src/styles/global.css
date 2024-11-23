@@ -516,18 +516,6 @@
       grid-template-columns: 1fr;
     }
   
-    .settings-sidebar {
-      border-right: none;
-      border-bottom: 1px solid #e5e7eb;
-    }
-  
-    .settings-main {
-      padding: 1rem;
-    }
-  
-    .settings-section {
-      max-width: 100%;
-    }
   }
 /* Estilos del Sidebar */
 .sidebar {
@@ -543,47 +531,7 @@
   padding-top: 1rem;
 }
 
-.sidebar.collapsed {
-  width: 70px;
-}
 
-.sidebar .nav {
-  padding: 0.5rem;
-}
-
-.sidebar .nav-item {
-  margin-bottom: 0.25rem;
-  position: relative;
-}
-
-.sidebar .nav-link,
-.sidebar .menu-button {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  color: #64748b;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-}
-
-.sidebar .nav-link:hover,
-.sidebar .menu-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-}
-
-.sidebar .nav-link.active,
-.sidebar .menu-button.active {
-  background: #e2e8f0;
-  color: #0f172a;
-  font-weight: 500;
-}
 
 .menu-icon,
 .submenu-icon {
@@ -668,7 +616,35 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: #64748b;
+  color:
+   #64748b;
+}
+
+.user-profile-img {
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  min-width: 40px;
+  aspect-ratio: 1 / 1;  /* Mantiene la proporción cuadrada */
+  flex-shrink: 0;       /* Evita que la imagen se encoja */
+}
+
+/* Asegúrate de que el contenedor también respete el tamaño */
+.user-box-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-height: 60px;    /* Altura mínima para el contenedor */
+}
+
+/* Para el estado colapsado */
+.sidebar.collapsed .user-profile-img {
+  margin: 0 auto;      /* Centra la imagen cuando está colapsado */
 }
 
 .user-info {
@@ -754,4 +730,60 @@
 .nav-link {
   cursor: pointer;
   transition: all 0.3s ease;
+}
+/* Actualiza estos estilos para el user-box en el Sidebar */
+
+.user-box {
+  position: fixed;
+  bottom: 0;
+  width: inherit;
+  padding: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.user-box-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  justify-content: flex-start; /* Alineación inicial */
+}
+
+.user-avatar {
+  min-width: 40px; /* Asegura un ancho mínimo */
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0; /* Evita que el avatar se encoja */
+  font-size: 1rem; /* Tamaño de letra fijo para la inicial */
+}
+
+/* src/styles/global.css */
+.sidebar {
+  transition: width 0.3s ease;
+}
+
+/* Solo si necesitas personalizar algún color o variable de Bootstrap */
+:root {
+  --primary-color: #007bff;
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 70px;
+}
+
+/* Cualquier estilo muy específico que Bootstrap no cubra */
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background-color: var(--bs-danger);
+  border-radius: 50%;
 }

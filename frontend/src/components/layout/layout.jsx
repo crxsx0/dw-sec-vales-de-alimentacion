@@ -1,16 +1,32 @@
+// src/components/layout/Layout.jsx
 import React, { useState } from 'react';
+import Sidebar from './sideBar';
 import Navbar from './navBar';
-import Sidebar from './sideBar ';
 
-const Layout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+const Layout = ({ children, onLogout }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   return (
-    <div className="min-vh-100 bg-light">
-      <Navbar sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-      <div className="d-flex">
-        <Sidebar isOpen={sidebarOpen} />
-        <main className={`flex-grow-1 p-4 ${sidebarOpen ? 'margin-left-240' : 'margin-left-80'}`}>
+    <div className="d-flex min-vh-100">
+      <Sidebar 
+        isCollapsed={isCollapsed} 
+        onLogout={onLogout}
+        toggleSidebar={toggleSidebar}
+      />
+      <div 
+        className="flex-grow-1"
+        style={{
+          marginLeft: isCollapsed ? '70px' : '260px',
+          transition: 'margin-left 0.3s ease',
+          width: '100%'
+        }}
+      >
+        <Navbar />
+        <main className="p-4">
           {children}
         </main>
       </div>
