@@ -1,10 +1,10 @@
 // config/database.js
 import mongoose from 'mongoose';
-import MONGODB_URL from './config.js';
+import config from './config.js';
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGODB_URL);
+    await mongoose.connect(config.MONGODB_URL);
     console.log('✅ Conexión exitosa a MongoDB');
   } catch (error) {
     console.error('❌ Error de conexión a MongoDB:', error.message);
