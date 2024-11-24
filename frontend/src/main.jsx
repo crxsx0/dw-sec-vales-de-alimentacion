@@ -20,6 +20,7 @@ import EmisionVales from './pages/emisionvales/EmisionVales';
 import Layout from './components/layout/layout';
 import GestionVales from './pages/gestionvales/GesionVales';
 import Servicios from './pages/servicios/servicios';
+import ReportesVales from './pages/reportes/ReportesVales';
 
 // Inicializar FontAwesome
 setupFontAwesome();
@@ -100,6 +101,22 @@ const App = () => {
             </ProtectedRoute>
           } 
           />
+          <Route 
+          path="/servicios" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+              <Servicios />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/reportes" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+              <ReportesVales />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </BrowserRouter>
   );
