@@ -4,7 +4,7 @@ import Turno from "../models/turno.js";
 // Obtener todos los turnos
 const obtenerTurnos = async (req, res) => {
     try {
-        const turnos = await Turno.find().populate('usuarioId');
+        const turnos = await Turno.find();
         res.status(200).json(turnos);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -20,7 +20,7 @@ const obtenerTurnoPorId = async (req, res) => {
             return res.status(400).json({ message: 'ID no válido.' });
         }
 
-        const turno = await Turno.findById(turnoId).populate('usuarioId');
+        const turno = await Turno.findById(turnoId)
         if (!turno) {
             return res.status(404).json({ message: 'Turno no encontrado.' });
         }
