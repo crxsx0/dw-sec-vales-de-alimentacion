@@ -1,5 +1,6 @@
 // src/pages/dashboard/Dashboard.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarAlt,
@@ -13,6 +14,8 @@ import ActivityList from '../../components/Dashboard/activityList';
 import Sidebar from '../../components/layout/sideBar';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   // Datos de ejemplo
   const estadisticas = {
     valesEmitidosHoy: 245,
@@ -21,6 +24,19 @@ const Dashboard = () => {
     serviciosDisponibles: 4,
     valesNoUtilizados: 45,
     turnoActual: 1
+  };
+
+  // Funciones de navegación
+  const handleEmitirVale = () => {
+    navigate('/emision-vales');
+  };
+
+  const handleGenerarReporte = () => {
+    navigate('/reportes');
+  };
+
+  const handleGestionarUsuarios = () => {
+    navigate('/usuarios');
   };
 
   return (
@@ -60,15 +76,24 @@ const Dashboard = () => {
             </div>
             <div className="card-body">
               <div className="d-flex gap-2 flex-wrap">
-                <button className="btn btn-primary">
+                <button 
+                  className="btn btn-primary"
+                  onClick={handleEmitirVale}
+                >
                   <FontAwesomeIcon icon={faTicketAlt} className="me-2" />
                   Emitir Vale
                 </button>
-                <button className="btn btn-outline-primary">
+                <button 
+                  className="btn btn-outline-primary"
+                  onClick={handleGenerarReporte}
+                >
                   <FontAwesomeIcon icon={faChartLine} className="me-2" />
                   Generar Reporte
                 </button>
-                <button className="btn btn-outline-primary">
+                <button 
+                  className="btn btn-outline-primary"
+                  onClick={handleGestionarUsuarios}
+                >
                   <FontAwesomeIcon icon={faUsers} className="me-2" />
                   Gestionar Usuarios
                 </button>
