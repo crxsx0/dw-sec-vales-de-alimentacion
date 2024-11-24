@@ -11,8 +11,9 @@ import {
   Card,
   Alert,
   InputGroup,
-  Pagination
+  Pagination,
 } from "react-bootstrap";
+
 import { FaPlus, FaTrash, FaEdit, FaSearch, FaFilter } from 'react-icons/fa';
 
 const GestionVales = () => {
