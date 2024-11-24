@@ -8,6 +8,7 @@ const autenticarJWT = (req, res, next) => {
         const decoded = jwt.verify(token, config.JWT_SECRET);
         req.usuarioAuth = decoded.usuario;
         req.rolAuth = decoded.rol;
+        req.idUsuarioAuth = decoded.id;
         next();
     } catch (error) {
         req.usuarioAuth = null;

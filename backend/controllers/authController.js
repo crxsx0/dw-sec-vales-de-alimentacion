@@ -15,7 +15,7 @@ const loginUsuario = async (req, res) => {
             return res.status(400).json({ message: 'Código de empleado o contraseña incorrectos.' });
         }
         
-        const token = jwt.sign({ usuario: usuario.codigoEmpleado, rol: usuario.rol }, config.JWT_SECRET);
+        const token = jwt.sign({ id: usuario._id, usuario: usuario.codigoEmpleado, rol: usuario.rol }, config.JWT_SECRET);
 
         res.status(200).json({ token: token });
     } catch (error) {
