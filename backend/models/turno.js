@@ -1,15 +1,11 @@
 import mongoose from "mongoose";
 
 const turnoSchema = new mongoose.Schema({
-    usuarioId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario',
-        required: [true, 'El usuario asociado es obligatorio'],
-    },
     turno: {
         type: Number,
         enum: [1, 2, 3],
         required: [true, 'El turno es obligatorio'],
+        unique: true
     },
     periodo: {
         type: String,

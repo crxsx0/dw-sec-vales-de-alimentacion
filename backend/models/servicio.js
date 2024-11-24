@@ -14,11 +14,7 @@ const servicioSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'El valor del servicio es obligatorio'],
         min: [0, 'El valor debe ser mayor o igual a 0'],
-    },
-    alternativas: {
-        type: [String],
-        default: [],
-    },
+    }
 });
 
 export default mongoose.model('Servicio', servicioSchema);

@@ -1,14 +1,8 @@
 import mongoose from "mongoose";
 
 const valeSchema = new mongoose.Schema({
-    codigoVale: {
-        type: String,
-        required: [true, 'El código del vale es obligatorio'],
-        unique: true,
-    },
     tipoServicio: {
         type: String,
-        enum: ['desayuno', 'almuerzo', 'once', 'cena1', 'cena2'],
         required: [true, 'El tipo de servicio es obligatorio'],
     },
     estado: {
@@ -16,16 +10,15 @@ const valeSchema = new mongoose.Schema({
         enum: ['emitido', 'utilizado', 'no utilizado'],
         default: 'emitido',
     },
-    valor: {
-        type: Number,
-        required: [true, 'El valor del vale es obligatorio'],
-    },
     fechaEmision: {
         type: Date,
         default: Date.now,
     },
     fechaUso: {
         type: Date,
+    },
+    ubicacionUso: {
+        type: String,
     },
     usuarioAutorizado: {
         type: mongoose.Schema.Types.ObjectId,

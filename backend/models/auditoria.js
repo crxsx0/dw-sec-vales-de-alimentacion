@@ -21,11 +21,7 @@ const auditoriaSchema = new mongoose.Schema({
     periodo: {
         type: String,
         required: [true, 'El periodo es obligatorio'], // Ejemplo: "2024-11"
-    },
-    detalles: {
-        type: String,
-        default: '',
-    },
+    }
 });
 
 export default mongoose.model('Auditoria', auditoriaSchema);
