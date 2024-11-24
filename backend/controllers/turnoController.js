@@ -86,10 +86,4 @@ const eliminarTurno = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerTurnos,
-    obtenerTurnoPorId,
-    crearTurno,
-    editarTurno,
-    eliminarTurno
-};
+export { obtenerTurnos, obtenerTurnoPorId, crearTurno, editarTurno, eliminarTurno };

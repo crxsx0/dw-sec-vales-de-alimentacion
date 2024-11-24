@@ -12,6 +12,7 @@ import valesRouter from './routes/vales.js';
 import serviciosRouter from './routes/servicios.js';
 import transaccionesRouter from './routes/transacciones.js';
 import auditoriasRouter from './routes/auditorias.js';
+import turnosRouter from './routes/turnos.js';
 
 // Inicialización de la aplicación
 const app = express();
@@ -45,6 +46,9 @@ app.use('/transacciones', transaccionesRouter);
 
 // Ruta para las auditorías
 app.use('/auditorias', auditoriasRouter);
+
+// Ruta para los turnos
+app.use('/turnos', turnosRouter);
 
 // Manejo de rutas no encontradas
 app.use('*', (req, res) => {
