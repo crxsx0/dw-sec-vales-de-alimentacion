@@ -1,18 +1,21 @@
 // src/pages/login/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle, X } from 'lucide-react';
 import '../../styles/global.css';
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
+    email: localStorage.getItem('userEmail') || '', // Cargar email guardado
     password: '',
     rememberMe: false
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,27 +29,49 @@ function Login({ onLogin }) {
     e.preventDefault();
     setError('');
 
-    // Aquí puedes agregar validación
     if (!formData.email || !formData.password) {
       setError('Por favor complete todos los campos');
       return;
     }
 
     try {
-      // Aquí normalmente irían las credenciales hardcodeadas o la llamada a la API
       if (formData.email === 'admin@admin.com' && formData.password === 'admin123') {
-        // Guardar en localStorage si rememberMe está activo
+        // Guardar email si recordarme está activo
         if (formData.rememberMe) {
           localStorage.setItem('userEmail', formData.email);
+        } else {
+          // Eliminar si no está activo
+          localStorage.removeItem('userEmail'); 
         }
         
-        onLogin(); // Actualiza el estado de autenticación
-        navigate('/dashboard'); // Redirige al dashboard
+        onLogin();
+        navigate('/dashboard');
       } else {
         setError('Credenciales incorrectas');
       }
     } catch (error) {
       setError('Error al iniciar sesión');
+    }
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    if (!resetEmail) {
+      setResetMessage('Por favor ingrese su correo electrónico');
+      return;
+    }
+    
+    try {
+      // Aquí iría la lógica real de envío de correo de recuperación
+      // Por ahora solo mostraremos un mensaje de éxito
+      setResetMessage('Se ha enviado un correo con las instrucciones para recuperar su contraseña');
+      setTimeout(() => {
+        setShowForgotPassword(false);
+        setResetMessage('');
+        setResetEmail('');
+      }, 3000);
+    } catch (error) {
+      setResetMessage('Error al enviar el correo de recuperación');
     }
   };
 
@@ -101,18 +126,27 @@ function Login({ onLogin }) {
             </div>
           </div>
 
-          <div className="form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="rememberMe"
-              name="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleChange}
-            />
-            <label className="form-check-label" htmlFor="rememberMe">
-              Recordarme
-            </label>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="rememberMe"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={handleChange}
+              />
+              <label className="form-check-label" htmlFor="rememberMe">
+                Recordarme
+              </label>
+            </div>
+            <button
+              type="button"
+              className="btn btn-link p-0"
+              onClick={() => setShowForgotPassword(true)}
+            >
+              ¿Olvidaste tu contraseña?
+            </button>
           </div>
 
           <button type="submit" className="btn-login">
@@ -120,9 +154,47 @@ function Login({ onLogin }) {
           </button>
         </form>
 
-        <div className="forgot-password">
-          <a href="#">¿Olvidaste tu contraseña?</a>
-        </div>
+        {showForgotPassword && (
+          <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Recuperar Contraseña</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setShowForgotPassword(false)}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={handleForgotPassword}>
+                    <div className="mb-3">
+                      <label htmlFor="resetEmail" className="form-label">
+                        Correo Electrónico
+                      </label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="resetEmail"
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        placeholder="Ingrese su correo electrónico"
+                      />
+                    </div>
+                    {resetMessage && (
+                      <div className={`alert ${resetMessage.includes('Error') ? 'alert-danger' : 'alert-success'}`}>
+                        {resetMessage}
+                      </div>
+                    )}
+                    <button type="submit" className="btn btn-primary w-100">
+                      Enviar instrucciones
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
