@@ -27,14 +27,6 @@ function Settings() {
 
     return (
         <div className="settings-container">
-            <button 
-                className="back-button"
-                onClick={() => navigate('/dashboard')}
-            >
-                <ArrowLeft size={20} />
-                Volver al Dashboard
-            </button>
-
             <div className="settings-header">
                 <h1>Configuración</h1>
                 <p>Administra tu cuenta y preferencias del sistema</p>

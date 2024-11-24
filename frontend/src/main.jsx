@@ -19,6 +19,7 @@ import Settings from './pages/settings/settings';
 import EmisionVales from './pages/emisionvales/EmisionVales';
 import Layout from './components/layout/layout';
 import GestionVales from './pages/gestionvales/GesionVales';
+import Servicios from './pages/servicios/servicios';
 
 // Inicializar FontAwesome
 setupFontAwesome();
@@ -83,14 +84,22 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
-       <Route 
-  path="/gestion-vales" 
-  element={
-    <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
-      <GestionVales />
-    </ProtectedRoute>
-  } 
-/>
+        <Route 
+        path="/gestion-vales" 
+        element={
+        <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+          <GestionVales />
+          </ProtectedRoute>
+          } 
+          />
+          <Route 
+          path="/servicios" 
+          element={
+          <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+            <Servicios />
+            </ProtectedRoute>
+          } 
+          />
       </Routes>
     </BrowserRouter>
   );
