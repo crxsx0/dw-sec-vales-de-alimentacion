@@ -1,6 +1,6 @@
 import express from 'express';
 import { obtenerVales, obtenerValePorId, crearVale, editarVale, eliminarVale } from '../controllers/valeController.js';
-import isAdmin from '../middlewares/authAdmin.js';
+import isAdmin from '../middlewares/auth/authAdmin.js';
 const router = express.Router();
 
 // Ruta para obtener todos los vales

@@ -1,6 +1,6 @@
 import express from 'express';
 import { obtenerUsuarios, obtenerUsuarioPorId, crearUsuario, editarUsuario, eliminarUsuario } from '../controllers/usuarioController.js';
-import isAdmin from '../middlewares/authAdmin.js';
+import isAdmin from '../middlewares/auth/authAdmin.js';
 
 const router = express.Router();
 

@@ -99,10 +99,4 @@ const eliminarTransaccion = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerTransacciones,
-    obtenerTransaccionPorId,
-    crearTransaccion,
-    editarTransaccion,
-    eliminarTransaccion
-};
+export { obtenerTransacciones, obtenerTransaccionPorId, crearTransaccion, editarTransaccion, eliminarTransaccion };

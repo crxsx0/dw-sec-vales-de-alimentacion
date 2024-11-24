@@ -1,5 +1,5 @@
 import express from 'express';
-import isAdmin from '../middlewares/authAdmin.js';
+import isAdmin from '../middlewares/auth/authAdmin.js';
 import { obtenerServicios, obtenerServicioPorId, crearServicio, editarServicio, eliminarServicio } from '../controllers/servicioController.js';
 
 const router = express.Router();
