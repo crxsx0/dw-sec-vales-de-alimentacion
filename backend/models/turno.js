@@ -21,4 +21,4 @@ const turnoSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Turno', turnoSchema);
+export default mongoose.model('Turno', turnoSchema);

@@ -28,4 +28,4 @@ const auditoriaSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Auditoria', auditoriaSchema);
+export default mongoose.model('Auditoria', auditoriaSchema);

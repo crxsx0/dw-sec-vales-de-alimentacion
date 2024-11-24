@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import Usuario from "../models/usuario";
-import Vale from "../models/vale";
-import Auditoria from "../models/auditoria";
-import Turno from "../models/turno";
+import Usuario from '../models/usuario.js';
+import Vale from "../models/vale.js";
+import Auditoria from "../models/auditoria.js";
+import Turno from "../models/turno.js";
 
 // Obtener todos los usuarios
 const obtenerUsuarios = async (req, res) => {
@@ -35,14 +35,21 @@ const obtenerUsuarioPorId = async (req, res) => {
     }
 };
 
-// Crear un nuevo usuario
 const crearUsuario = async (req, res) => {
     try {
-        const { nombre, codigoEmpleado, password, rol, email, turnoActual, sucursal } = req.body;
+        const { nombre, codigoEmpleado, password, rol, email, turnoActual, perfil, sucursal } = req.body;
+        
+        if (req.rolAuth !== 'administrador') {
+            return res.status(401).json({ message: 'No tienes permisos para realizar esta acción.' });
+        }
 
         // Validar campos obligatorios
         if (!nombre || !codigoEmpleado || !password || !rol || !email || !turnoActual || !sucursal) {
             return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+        }
+
+        if (await Usuario.findOne({ codigoEmpleado })) {
+            return res.status(400).json({ message: 'El código de empleado ya está registrado.' });
         }
 
         const nuevoUsuario = new Usuario({
@@ -52,6 +59,7 @@ const crearUsuario = async (req, res) => {
             rol,
             email,
             turnoActual,
+            perfil,
             sucursal
         });
 
@@ -60,7 +68,8 @@ const crearUsuario = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-};
+}
+
 
 // Editar un usuario existente
 const editarUsuario = async (req, res) => {
@@ -115,10 +124,4 @@ const eliminarUsuario = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerUsuarios,
-    obtenerUsuarioPorId,
-    crearUsuario,
-    editarUsuario,
-    eliminarUsuario
-};
+export { obtenerUsuarios, obtenerUsuarioPorId, crearUsuario, editarUsuario, eliminarUsuario };

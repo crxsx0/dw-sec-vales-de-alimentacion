@@ -34,4 +34,4 @@ const valeSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Vale', valeSchema);
+export default mongoose.model('Vale', valeSchema);
