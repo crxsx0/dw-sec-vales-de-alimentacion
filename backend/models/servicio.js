@@ -21,4 +21,4 @@ const servicioSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Servicio', servicioSchema);
+export default mongoose.model('Servicio', servicioSchema);

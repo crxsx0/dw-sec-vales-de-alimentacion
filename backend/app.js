@@ -5,6 +5,7 @@ import autenticarJWT from './middlewares/authJWT.js';
 import authRouter from './routes/auth.js';
 import usuarioRouter from './routes/usuario.js';
 import valesRouter from './routes/vales.js';
+import serviciosRouter from './routes/servicios.js';
 
 // Inicialización de la aplicación
 const app = express();
@@ -26,6 +27,8 @@ app.use('/auth', authRouter);
 app.use('/usuarios', usuarioRouter);
 
 app.use('/vales', valesRouter);
+
+app.use('/servicios', serviciosRouter);
 
 // Manejo de rutas no encontradas
 app.use('*', (req, res) => {

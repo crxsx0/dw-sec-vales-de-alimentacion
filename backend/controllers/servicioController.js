@@ -86,10 +86,4 @@ const eliminarServicio = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerServicios,
-    obtenerServicioPorId,
-    crearServicio,
-    editarServicio,
-    eliminarServicio
-};
+export { obtenerServicios, obtenerServicioPorId, crearServicio, editarServicio, eliminarServicio };
