@@ -11,18 +11,27 @@ const Layout = ({ children, onLogout }) => {
   };
 
   return (
-    <div className="d-flex min-vh-100" style={{ backgroundColor: '#f8f9fa' }}>
-      <Sidebar 
-        isCollapsed={isCollapsed} 
-        onLogout={onLogout}
-        toggleSidebar={toggleSidebar}
-      />
+    <div className="d-flex vh-100">
+      <div className={`sidebar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
+        <Sidebar 
+          isCollapsed={isCollapsed} 
+          onLogout={onLogout}
+          toggleSidebar={toggleSidebar}
+        />
+      </div>
+      
+      {/* Overlay para móviles */}
       <div 
-        className="flex-grow-1"
+        className={`sidebar-overlay ${!isCollapsed ? 'show' : ''}`} 
+        onClick={toggleSidebar}
+      />
+
+      {/* Contenido principal */}
+      <div 
+        className="main-content flex-grow-1"
         style={{
-          marginLeft: isCollapsed ? '70px' : '260px',
-          transition: 'margin-left 0.3s ease',
-          width: '100%'
+          minHeight: '100vh',
+          transition: 'margin-left 0.3s ease'
         }}
       >
         <Navbar />
