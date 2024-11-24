@@ -32,16 +32,6 @@ const Navbar = ({ toggleSidebar, isCollapsed }) => {
             <FontAwesomeIcon icon={faClock} />
             <span className="ms-2">{time}</span>
           </div>
-
-          <button 
-            className="btn btn-link position-relative border-0"
-            title="Notificaciones"
-          >
-            <FontAwesomeIcon icon={faBell} className="text-muted" />
-            <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-              <span className="visually-hidden">Notificaciones nuevas</span>
-            </span>
-          </button>
         </div>
       </div>
     </nav>
