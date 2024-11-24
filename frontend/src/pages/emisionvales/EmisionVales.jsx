@@ -21,6 +21,7 @@ import {
   FaSave,
   FaTimes
 } from 'react-icons/fa';
+import { useDashboard } from '../../context/DashboardContext';
 
 const EmisionVales = () => {
   const [formData, setFormData] = useState({

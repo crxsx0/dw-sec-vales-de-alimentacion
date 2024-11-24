@@ -13,6 +13,7 @@ import MealSchedule from '../../components/Dashboard/MealSchedule';
 import ActivityList from '../../components/Dashboard/activityList';
 import Sidebar from '../../components/layout/sideBar';
 
+
 const Dashboard = () => {
   const navigate = useNavigate();
 

@@ -22,6 +22,7 @@ import GestionVales from './pages/gestionvales/GestionVales';
 import Servicios from './pages/servicios/servicios';
 import ReportesVales from './pages/reportes/ReportesVales';
 import Usuarios from './pages/usuarios/Usuarios';
+import { DashboardProvider, useDashboard } from './context/DashboardContext';
 
 // Inicializar FontAwesome
 setupFontAwesome();
@@ -48,7 +49,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
+      <DashboardProvider>
+        <Routes>
         <Route 
           path="/" 
           element={<Login onLogin={handleLogin} />} 
@@ -126,7 +128,8 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
-      </Routes>
+        </Routes>
+      </DashboardProvider>
     </BrowserRouter>
   );
 };

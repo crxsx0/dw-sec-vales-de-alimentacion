@@ -54,11 +54,6 @@ const Sidebar = ({ isCollapsed, onLogout, toggleSidebar }) => { // Añade toggle
       icon: faChartBar
     },
     {
-      title: 'Perfiles',
-      path: '/perfiles',
-      icon: faUserCog
-    },
-    {
       title: 'Configuración',
       path: '/settings',  // Actualizado para coincidir con tu ruta actual
       icon: faCog
@@ -134,7 +129,7 @@ const Sidebar = ({ isCollapsed, onLogout, toggleSidebar }) => { // Añade toggle
             </div>
             {!isCollapsed && (
               <div className="ms-3">
-                <div className="fw-bold">yellow-23</div>
+                <div className="fw-bold">Admin1</div>
                 <small className="text-muted">Administrador</small>
               </div>
             )}
