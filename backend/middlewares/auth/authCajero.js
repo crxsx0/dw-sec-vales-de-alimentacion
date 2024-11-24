@@ -5,3 +5,5 @@ const isCajero = (req, res, next) => {
 
     next();
 }
+
+export default isCajero;
