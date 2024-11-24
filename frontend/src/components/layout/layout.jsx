@@ -11,7 +11,7 @@ const Layout = ({ children, onLogout }) => {
   };
 
   return (
-    <div className="d-flex min-vh-100">
+    <div className="d-flex min-vh-100" style={{ backgroundColor: '#f8f9fa' }}>
       <Sidebar 
         isCollapsed={isCollapsed} 
         onLogout={onLogout}

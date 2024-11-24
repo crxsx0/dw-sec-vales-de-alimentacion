@@ -8,14 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './styles/global.css';
 
+
 // Configuración
 import { setupFontAwesome } from './utils/fontawesome';
 
 // Componentes
 import Login from './pages/login/Login';
-import Dashboard from './pages/dashboard/dashBoard';
+import Dashboard from './pages/dashboard//dashBoard';
 import Settings from './pages/settings/settings';
+import EmisionVales from './pages/emisionvales/EmisionVales';
 import Layout from './components/layout/layout';
+import GestionVales from './pages/gestionvales/GesionVales';
 
 // Inicializar FontAwesome
 setupFontAwesome();
@@ -47,22 +50,17 @@ const App = () => {
           path="/" 
           element={<Login onLogin={handleLogin} />} 
         />
-        // En tu main.jsx, asegúrate de que la ruta raíz redirija al login
-<Route 
-  path="/" 
-  element={<Login onLogin={handleLogin} />} 
-/>
-<Route 
-  path="/dashboard" 
-  element={
-    <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
-      <Dashboard 
-        isAuthenticated={isAuthenticated}
-        onLogout={handleLogout}
-      />
-    </ProtectedRoute>
-  } 
-/>
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+              <Dashboard 
+                isAuthenticated={isAuthenticated}
+                onLogout={handleLogout}
+              />
+            </ProtectedRoute>
+          } 
+        />
         <Route 
           path="/settings" 
           element={
@@ -75,9 +73,24 @@ const App = () => {
           } 
         />
         <Route 
-          path="*" 
-          element={<Navigate to="/" replace />} 
+          path="/emision-vales" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+              <EmisionVales 
+                isAuthenticated={isAuthenticated}
+                onLogout={handleLogout}
+              />
+            </ProtectedRoute>
+          } 
         />
+       <Route 
+  path="/gestion-vales" 
+  element={
+    <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
+      <GestionVales />
+    </ProtectedRoute>
+  } 
+/>
       </Routes>
     </BrowserRouter>
   );

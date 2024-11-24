@@ -11,6 +11,10 @@
     margin: 0 !important;
     padding: 0 !important;
     font-family: 'Inter', sans-serif !important;
+    background-color: black;  /* Este es un gris muy claro de Bootstrap */
+    margin: 0;
+    padding: 0;
+
   }
 * {
     margin: 0;
