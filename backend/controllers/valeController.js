@@ -86,10 +86,4 @@ const eliminarVale = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerVales,
-    obtenerValePorId,
-    crearVale,
-    editarVale,
-    eliminarVale
-};
+export { obtenerVales, obtenerValePorId, crearVale, editarVale, eliminarVale };
