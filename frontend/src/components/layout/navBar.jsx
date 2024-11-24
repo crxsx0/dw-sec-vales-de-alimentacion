@@ -10,7 +10,7 @@ const Navbar = ({ toggleSidebar, isCollapsed }) => {
     // Función para actualizar la hora
     const updateTime = () => {
       const now = new Date();
-      const formattedTime = now.toLocaleTimeString(); // Obtiene la hora en formato local
+      const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Obtiene la hora y minutos en formato local
       setTime(formattedTime);
     };
 
