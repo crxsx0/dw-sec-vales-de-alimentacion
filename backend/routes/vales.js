@@ -1,6 +1,6 @@
 import express from 'express';
 import { obtenerVales, obtenerValePorId, crearVale, editarVale, eliminarVale } from '../controllers/valeController.js';
-
+import isAdmin from '../middlewares/authAdmin.js';
 const router = express.Router();
 
 // Ruta para obtener todos los vales
@@ -14,27 +14,12 @@ router.get('/:id', (req, res) => {
 });
 
 // Ruta para crear un vale
-router.post('/', (req, res) => {
-    if (req.rolAuth !== 'administrador') {
-        return res.status(401).json({ message: 'No tienes permisos para realizar esta acción.' });
-    }
-    crearVale(req, res);
-});
+router.post('/', isAdmin, crearVale);
 
 // Ruta para editar un vale
-router.put('/:id', (req, res) => {
-    if (req.rolAuth !== 'administrador') {
-        return res.status(401).json({ message: 'No tienes permisos para realizar esta acción.' });
-    }
-    editarVale(req, res);
-});
+router.put('/:id', isAdmin, editarVale);
 
 // Ruta para eliminar un vale
-router.delete('/:id', (req, res) => {
-    if (req.rolAuth !== 'administrador') {
-        return res.status(401).json({ message: 'No tienes permisos para realizar esta acción.' });
-    }
-    eliminarVale(req, res);
-});
+router.delete('/:id', isAdmin, eliminarVale);
 
 export default router;
