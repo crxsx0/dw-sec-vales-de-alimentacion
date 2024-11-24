@@ -86,10 +86,4 @@ const eliminarAuditoria = async (req, res) => {
     }
 };
 
-module.exports = {
-    obtenerAuditorias,
-    obtenerAuditoriaPorId,
-    crearAuditoria,
-    editarAuditoria,
-    eliminarAuditoria
-};
+export { obtenerAuditorias, obtenerAuditoriaPorId, crearAuditoria, editarAuditoria, eliminarAuditoria };
