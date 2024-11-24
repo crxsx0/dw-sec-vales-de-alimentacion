@@ -75,7 +75,11 @@ const crearUsuario = async (req, res) => {
 const editarUsuario = async (req, res) => {
     try {
         const userId = req.params.id;
-
+        
+        if (req.rolAuth !== 'administrador') {
+            return res.status(401).json({ message: 'No tienes permisos para realizar esta acción.' });
+        }
+        
         // Validar que el ID sea válido
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: 'ID no válido.' });
