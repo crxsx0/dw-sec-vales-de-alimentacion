@@ -37,27 +37,13 @@ const obtenerUsuarioPorId = async (req, res) => {
 
 const crearUsuario = async (req, res) => {
     try {
-        const { nombre, codigoEmpleado, password, rol, email, turnoActual, perfil, sucursal } = req.body;
-
-        // Validar campos obligatorios
-        if (!nombre || !codigoEmpleado || !password || !rol || !email || !turnoActual || !sucursal) {
-            return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
-        }
+        const { codigoEmpleado } = req.body;
 
         if (await Usuario.findOne({ codigoEmpleado })) {
             return res.status(400).json({ message: 'El código de empleado ya está registrado.' });
         }
 
-        const nuevoUsuario = new Usuario({
-            nombre,
-            codigoEmpleado,
-            password,
-            rol,
-            email,
-            turnoActual,
-            perfil,
-            sucursal
-        });
+        const nuevoUsuario = new Usuario(req.body);
 
         const usuarioGuardado = await nuevoUsuario.save();
         res.status(201).json(usuarioGuardado);
