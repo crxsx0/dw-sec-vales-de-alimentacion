@@ -93,7 +93,7 @@ const typeDefs = gql`
         crearVale(
             tipoServicio: String!
             estado: String!
-            fechaEmision: String!
+            fechaEmision: String
             fechaUso: String
             ubicacionUso: String
             usuarioAutorizado: ID!
