@@ -81,14 +81,7 @@ function Settings() {
                                     <Bell size={18} />
                                     Notificaciones
                                 </Button>
-                                <Button 
-                                    variant="link"
-                                    className={`list-group-item list-group-item-action d-flex align-items-center gap-2 ${activeTab === 'appearance' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('appearance')}
-                                >
-                                    <Globe size={18} />
-                                    Apariencia
-                                </Button>
+                        
                             </div>
                         </Col>
 
@@ -159,25 +152,6 @@ function Settings() {
                                         />
                                         <Button variant="primary" onClick={handleSaveChanges}>
                                             Guardar preferencias
-                                        </Button>
-                                    </Form>
-                                </div>
-                            )}
-
-                            {activeTab === 'appearance' && (
-                                <div>
-                                    <h4 className="mb-4">Apariencia</h4>
-                                    <Form>
-                                        <Form.Check 
-                                            type="switch"
-                                            id="dark-mode"
-                                            label="Modo oscuro"
-                                            checked={darkMode}
-                                            onChange={() => setDarkMode(!darkMode)}
-                                            className="mb-3"
-                                        />
-                                        <Button variant="primary" onClick={handleSaveChanges}>
-                                            Aplicar cambios
                                         </Button>
                                     </Form>
                                 </div>
