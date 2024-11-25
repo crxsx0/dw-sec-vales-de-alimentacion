@@ -63,9 +63,120 @@ const typeDefs = gql`
         servicios: [Servicio]!
     }
 
+    type Mutation {
+        crearUsuario(
+            nombre: String!
+            codigoEmpleado: String!
+            password: String!
+            rol: String!
+            email: String!
+            perfil: String!
+            turnoActual: Int!
+            sucursal: String!
+        ): Usuario!
+    
+        editarUsuario(
+            id: ID!
+            nombre: String
+            codigoEmpleado: String
+            password: String
+            rol: String
+            email: String
+            perfil: String
+            turnoActual: Int
+            sucursal: String
+        ): Usuario!
+
+        eliminarUsuario(id: ID!): Usuario!
+
+        crearVale(
+            tipoServicio: String!
+            estado: String!
+            fechaEmision: String!
+            fechaUso: String
+            ubicacionUso: String
+            usuarioAutorizado: ID!
+        ): Vale!
+
+        editarVale(
+            id: ID!
+            tipoServicio: String
+            estado: String
+            fechaEmision: String
+            fechaUso: String
+            ubicacionUso: String
+            usuarioAutorizado: ID
+        ): Vale!
+
+        eliminarVale(id: ID!): Vale!
+
+        crearServicio(
+            tipoServicio: String!
+            descripcion: String!
+            valor: Int!
+        ): Servicio!
+
+        editarServicio(
+            id: ID!
+            tipoServicio: String
+            descripcion: String
+            valor: Int
+        ): Servicio!
+
+        eliminarServicio(id: ID!): Servicio!
+
+        crearTurno(
+            turno: Int!
+            periodo: String!
+            sucursal: String!
+        ): Turno!
+
+        editarTurno(
+            id: ID!
+            turno: Int
+            periodo: String
+            sucursal: String
+        ): Turno!
+
+        eliminarTurno(id: ID!): Turno!
+
+        crearTransaccion(
+            codigoVale: ID!
+            fechaTransaccion: String!
+            ubicacion: String!
+        ): Transaccion!
+
+        editarTransaccion(
+            id: ID!
+            codigoVale: ID
+            fechaTransaccion: String
+            ubicacion: String
+        ): Transaccion!
+
+        eliminarTransaccion(id: ID!): Transaccion!
+
+        crearAuditoria(
+            usuarioId: ID!
+        ): Auditoria!
+
+        editarAuditoria(
+            id: ID!
+            usuarioId: ID
+            valesEmitidos: Int
+            valesUtilizados: Int
+            valesNoUtilizados: Int
+            periodo: String
+        ): Auditoria!
+
+        eliminarAuditoria(id: ID!): Auditoria!
+
+    }
+
     type Query {
         obtenerUsuarios: [Usuario]!,
         findUserById(id: ID!): Usuario!
+        obtenerTurnos: [Turno]!
+        obtenerServicios: [Servicio]!
     }
 `
 
@@ -75,10 +186,250 @@ const resolvers = {
             const { data: usuariosAPI } = await axios.get(`${URL_API}/usuarios`);
             return usuariosAPI;
         },
-
+        
         findUserById: async (_, { id }) => {
             const { data: usuarioAPI } = await axios.get(`${URL_API}/usuarios/${id}`);
             return usuarioAPI;
+        },
+
+        obtenerTurnos: async () => {
+            const { data: turnosAPI } = await axios.get(`${URL_API}/turnos`);
+            return turnosAPI;
+        },
+
+        obtenerServicios: async () => {
+            const { data: serviciosAPI } = await axios.get(`${URL_API}/servicios`);
+            return serviciosAPI;
+        }
+    },
+
+    Mutation: {
+        // Usuario
+        crearUsuario: async (_, { nombre, codigoEmpleado, password, rol, email, perfil, turnoActual, sucursal }, { token }) => { 
+            const { data: usuarioAPI } = await axios.post(`${URL_API}/usuarios`, {
+                nombre,
+                codigoEmpleado,
+                password,
+                rol,
+                email,
+                perfil,
+                turnoActual,
+                sucursal
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return usuarioAPI;
+        },
+
+        editarUsuario: async (_, { id, nombre, codigoEmpleado, password, rol, email, perfil, turnoActual, sucursal }, {token}) => {
+            const { data: usuarioAPI } = await axios.put(`${URL_API}/usuarios/${id}`, {
+                nombre,
+                codigoEmpleado,
+                password,
+                rol,
+                email,
+                perfil,
+                turnoActual,
+                sucursal
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return usuarioAPI;
+        },
+
+        eliminarUsuario: async (_, { id }, {token}) => {
+            const { data: usuarioAPI } = await axios.delete(`${URL_API}/usuarios/${id}`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return usuarioAPI;
+        },
+        // Vales
+        crearVale: async (_, { tipoServicio, estado, fechaEmision, fechaUso, ubicacionUso, usuarioAutorizado }, { token }) => {
+            const { data: valeAPI } = await axios.post(`${URL_API}/vales`, {
+                tipoServicio,
+                estado,
+                fechaEmision,
+                fechaUso,
+                ubicacionUso,
+                usuarioAutorizado
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return valeAPI;
+        },
+
+        editarVale: async (_, { id, tipoServicio, estado, fechaEmision, fechaUso, ubicacionUso, usuarioAutorizado }, { token }) => {
+            const { data: valeAPI } = await axios.put(`${URL_API}/vales/${id}`, {
+                tipoServicio,
+                estado,
+                fechaEmision,
+                fechaUso,
+                ubicacionUso,
+                usuarioAutorizado
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return valeAPI;
+        },
+
+        eliminarVale: async (_, { id }, { token }) => {
+            const { data: valeAPI } = await axios.delete(`${URL_API}/vales/${id}`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return valeAPI;
+        },
+
+        //Servicios
+        crearServicio: async (_, { tipoServicio, descripcion, valor }, { token }) => {
+            const { data: servicioAPI } = await axios.post(`${URL_API}/servicios`, {
+                tipoServicio,
+                descripcion,
+                valor
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return servicioAPI;
+        },
+
+        editarServicio: async (_, { id, tipoServicio, descripcion, valor }, { token }) => {
+            const { data: servicioAPI } = await axios.put(`${URL_API}/servicios/${id}`, {
+                tipoServicio,
+                descripcion,
+                valor
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return servicioAPI;
+        },
+
+        eliminarServicio: async (_, { id }, { token }) => {
+            const { data: servicioAPI } = await axios.delete(`${URL_API}/servicios/${id}`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return servicioAPI;
+        },
+
+        // Turnos
+        crearTurno: async (_, { turno, periodo, sucursal }, { token }) => {
+            const { data: turnoAPI } = await axios.post(`${URL_API}/turnos`, {
+                turno,
+                periodo,
+                sucursal
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return turnoAPI;
+        },
+
+        editarTurno: async (_, { id, turno, periodo, sucursal }, { token }) => {
+            const { data: turnoAPI } = await axios.put(`${URL_API}/turnos/${id}`, {
+                turno,
+                periodo,
+                sucursal
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return turnoAPI;
+        },
+
+        eliminarTurno: async (_, { id }, { token }) => {
+            const { data: turnoAPI } = await axios.delete(`${URL_API}/turnos/${id}`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return turnoAPI;
+        },
+
+        // Transacciones
+        crearTransaccion: async (_, { codigoVale, fechaTransaccion, ubicacion }, { token }) => {
+            const { data: transaccionAPI } = await axios.post(`${URL_API}/transacciones`, {
+                codigoVale,
+                fechaTransaccion,
+                ubicacion
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return transaccionAPI;
+        },
+
+        editarTransaccion: async (_, { id, codigoVale, fechaTransaccion, ubicacion }, { token }) => {
+            const { data: transaccionAPI } = await axios.put(`${URL_API}/transacciones/${id}`, {
+                codigoVale,
+                fechaTransaccion,
+                ubicacion
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return transaccionAPI;
+        },
+
+        eliminarTransaccion: async (_, { id }, { token }) => {
+            const { data: transaccionAPI } = await axios.delete(`${URL_API}/transacciones/${id}`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return transaccionAPI
+        },
+
+        // Auditorias
+
+        crearAuditoria: async (_, { usuarioId, valesEmitidos, valesUtilizados, valesNoUtilizados, periodo }, { token }) => {
+            const { data: auditoriaAPI } = await axios.post(`${URL_API}/auditorias`, {
+                usuarioId,
+                valesEmitidos,
+                valesUtilizados,
+                valesNoUtilizados,
+                periodo
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return auditoriaAPI;
         }
     },
 
@@ -104,6 +455,15 @@ const resolvers = {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => {
+        const token = req.headers.token || '';
+
+        if (!token) {
+            throw new Error('Token no proporcionado');
+        }
+
+        return { token };
+    }
 });
 
 server.listen().then(({ url }) => {
