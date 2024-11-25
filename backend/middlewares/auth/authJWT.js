@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import config from '../../config/config.js';
 
 const autenticarJWT = (req, res, next) => {
-    const token = req.body.token
-
+    const token = req.header('token');
+    
     try {
         const decoded = jwt.verify(token, config.JWT_SECRET);
         req.usuarioAuth = decoded.usuario;
