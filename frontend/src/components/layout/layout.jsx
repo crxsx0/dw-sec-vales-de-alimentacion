@@ -34,7 +34,10 @@ const Layout = ({ children, onLogout }) => {
           transition: 'margin-left 0.3s ease'
         }}
       >
-        <Navbar />
+        <Navbar 
+          toggleSidebar={toggleSidebar}
+          isCollapsed={isCollapsed}
+        />
         <main className="p-4">
           {children}
         </main>
