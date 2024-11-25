@@ -973,3 +973,33 @@
   text-decoration: underline;
 }
 
+/* Ajustes para el navbar y el contenido principal */
+.navbar {
+  transition: all 0.3s ease;
+  height: 73px; /* Aumentamos la altura */
+  border-bottom: 1px solid #e5e7eb; /* Añadimos el borde */
+  padding-top: 0.8rem; /* Ajustamos el padding */
+  padding-bottom: 0.8rem;
+}
+
+.main-content {
+  padding-top: 70px !important; /* Ajustamos el padding del contenido */
+  margin-left: 260px;
+  transition: all 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: 70px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: 70px; /* Ajustamos también aquí */
+  }
+}

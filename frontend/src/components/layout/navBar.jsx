@@ -21,7 +21,16 @@ const Navbar = ({ toggleSidebar, isCollapsed }) => {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm"
+         style={{
+           marginLeft: isCollapsed ? '70px' : '260px',
+           width: `calc(100% - ${isCollapsed ? '70px' : '260px'})`,
+           position: 'fixed',
+           top: 0,
+           right: 0,
+           zIndex: 1000,
+           transition: 'all 0.3s ease'
+         }}>
       <div className="container-fluid">
       
         <span className="navbar-brand mb-0 h1 ms-2"></span>
