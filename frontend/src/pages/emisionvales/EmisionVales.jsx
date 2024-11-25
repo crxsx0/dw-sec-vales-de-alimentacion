@@ -37,11 +37,8 @@ const EmisionVales = () => {
   const [showAlert, setShowAlert] = useState({ show: false, message: '', variant: 'success' });
   const [showPreview, setShowPreview] = useState(false);
 
-  const servicios = [
-    { id: 'desayuno', nombre: 'Desayuno', horario: '07:00 - 09:30' },
-    { id: 'almuerzo', nombre: 'Almuerzo', horario: '12:00 - 14:30' },
-    { id: 'once', nombre: 'Once', horario: '16:00 - 17:30' }
-  ];
+  // Array de servicios simplificado
+  const servicios = ['Desayuno', 'Almuerzo', 'Once'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,15 +65,6 @@ const EmisionVales = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!validarHorarioServicio(formData.servicio)) {
-      setShowAlert({
-        show: true,
-        message: 'Fuera del horario permitido para este servicio',
-        variant: 'warning'
-      });
-      return;
-    }
-
     const nuevoVale = {
       ...formData,
       id: Date.now(),
@@ -84,12 +72,8 @@ const EmisionVales = () => {
     };
 
     setValesEmitidos([nuevoVale, ...valesEmitidos]);
-    setShowAlert({
-      show: true,
-      message: '¡Vale emitido con éxito!',
-      variant: 'success'
-    });
-
+    
+    // Resetear el formulario y mostrar alerta de éxito
     setFormData({
       nombre: '',
       servicio: '',
@@ -99,7 +83,11 @@ const EmisionVales = () => {
       observaciones: ''
     });
 
-    setTimeout(() => setShowAlert({ show: false, message: '', variant: 'success' }), 3000);
+    setShowAlert({
+      show: true,
+      message: '¡Vale emitido con éxito!',
+      variant: 'success'
+    });
   };
 
   return (
@@ -154,8 +142,8 @@ const EmisionVales = () => {
                         >
                           <option value="">Selecciona un servicio</option>
                           {servicios.map(servicio => (
-                            <option key={servicio.id} value={servicio.nombre}>
-                              {servicio.nombre} ({servicio.horario})
+                            <option key={servicio} value={servicio}>
+                              {servicio}
                             </option>
                           ))}
                         </Form.Select>
@@ -248,16 +236,12 @@ const EmisionVales = () => {
               <h4>Horarios de Servicios</h4>
               <Table striped bordered hover size="sm" className="mt-3">
                 <thead>
-                  <tr>
                     <th>Servicio</th>
-                    <th>Horario</th>
-                  </tr>
                 </thead>
                 <tbody>
                   {servicios.map(servicio => (
-                    <tr key={servicio.id}>
-                      <td>{servicio.nombre}</td>
-                      <td>{servicio.horario}</td>
+                    <tr key={servicio}>
+                      <td>{servicio}</td>
                     </tr>
                   ))}
                 </tbody>
