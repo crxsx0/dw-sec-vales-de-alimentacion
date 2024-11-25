@@ -18,7 +18,6 @@ import Dashboard from './pages/dashboard//dashBoard';
 import Settings from './pages/settings/settings';
 import EmisionVales from './pages/emisionvales/EmisionVales';
 import Layout from './components/layout/layout';
-import GestionVales from './pages/gestionvales/GestionVales';
 import Servicios from './pages/servicios/servicios';
 import ReportesVales from './pages/reportes/ReportesVales';
 import Usuarios from './pages/usuarios/Usuarios';
@@ -88,14 +87,6 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
-        <Route 
-        path="/gestion-vales" 
-        element={
-        <ProtectedRoute isAuthenticated={isAuthenticated} onLogout={handleLogout}>
-          <GestionVales />
-          </ProtectedRoute>
-          } 
-          />
           <Route 
           path="/servicios" 
           element={

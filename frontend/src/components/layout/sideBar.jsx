@@ -34,11 +34,6 @@ const Sidebar = ({ isCollapsed, onLogout, toggleSidebar }) => { // Añade toggle
       icon: faPrint
     },
     {
-      title: 'Gestión de Vales',
-      path: '/gestion-vales',
-      icon: faTicketAlt
-    },
-    {
       title: 'Servicios',
       path: '/servicios',
       icon: faUtensils
