@@ -177,6 +177,9 @@ const typeDefs = gql`
         findUserById(id: ID!): Usuario!
         obtenerTurnos: [Turno]!
         obtenerServicios: [Servicio]!
+        obtenerAuditorias: [Auditoria]!
+        obtenerTransacciones: [Transaccion]!
+        obtenerVales: [Vale]!
     }
 `
 
@@ -200,7 +203,33 @@ const resolvers = {
         obtenerServicios: async () => {
             const { data: serviciosAPI } = await axios.get(`${URL_API}/servicios`);
             return serviciosAPI;
+        },
+
+        obtenerAuditorias: async (_, args, {token}) => {
+            const { data: auditoriasAPI } = await axios.get(`${URL_API}/auditorias`, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return auditoriasAPI;
+        },
+
+        obtenerTransacciones: async (_, args, {token} ) => {
+            const { data: transaccionesAPI } = await axios.get(`${URL_API}/transacciones`, {
+                headers: {
+                    'token': token
+                }
+            }
+            );
+            return transaccionesAPI;
+        },
+
+        obtenerVales: async () => {
+            const { data: valesAPI } = await axios.get(`${URL_API}/vales`);
+            return valesAPI;
         }
+
     },
 
     Mutation: {
@@ -416,14 +445,48 @@ const resolvers = {
 
         // Auditorias
 
-        crearAuditoria: async (_, { usuarioId, valesEmitidos, valesUtilizados, valesNoUtilizados, periodo }, { token }) => {
+        crearAuditoria: async (_, { usuarioId }, { token }) => {
+            
+            const { data: valesAPI } = await axios.get(`${URL_API}/vales`);
+
+            const valesEmitidos = valesAPI.filter(vale => vale.usuarioAutorizado === usuarioId).length;
+
+            const valesUtilizados = valesAPI.filter(vale => vale.estado === 'Utilizado').length;
+
+            const valesNoUtilizados = valesAPI.filter(vale => vale.estado === 'No utilizado').length;
+
             const { data: auditoriaAPI } = await axios.post(`${URL_API}/auditorias`, {
+                usuarioId,
+                valesEmitidos,
+                valesUtilizados,
+                valesNoUtilizados
+            }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return auditoriaAPI;
+        },
+
+        editarAuditoria: async (_, { id, usuarioId, valesEmitidos, valesUtilizados, valesNoUtilizados, periodo }, { token }) => {
+            const { data: auditoriaAPI } = await axios.put(`${URL_API}/auditorias/${id}`, {
                 usuarioId,
                 valesEmitidos,
                 valesUtilizados,
                 valesNoUtilizados,
                 periodo
             }, {
+                headers: {
+                    'token': token
+                }
+            });
+
+            return auditoriaAPI;
+        },
+
+        eliminarAuditoria: async (_, { id }, { token }) => {
+            const { data: auditoriaAPI } = await axios.delete(`${URL_API}/auditorias/${id}`, {
                 headers: {
                     'token': token
                 }
