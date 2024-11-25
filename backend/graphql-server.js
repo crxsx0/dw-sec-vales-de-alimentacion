@@ -1,7 +1,8 @@
 import { gql, ApolloServer } from "apollo-server";
 import axios from "axios";
+import config from "./config/config.js";
 
-const URL_API = "http://localhost:3000";
+const URL_API = `http://localhost:${config.PORT_API_SERVER}`;
 
 const typeDefs = gql`
     type Usuario {
