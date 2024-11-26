@@ -1,6 +1,7 @@
 import { gql, ApolloServer } from "apollo-server";
 import axios from "axios";
 import config from "./config/config.js";
+import e from "express";
 
 const URL_API = `http://localhost:${config.PORT_API_SERVER}`;
 
@@ -88,7 +89,7 @@ const typeDefs = gql`
             sucursal: String
         ): Usuario!
 
-        eliminarUsuario(id: ID!): Usuario!
+        eliminarUsuario(id: ID!): String!
 
         crearVale(
             tipoServicio: String!
@@ -109,7 +110,7 @@ const typeDefs = gql`
             usuarioAutorizado: ID
         ): Vale!
 
-        eliminarVale(id: ID!): Vale!
+        eliminarVale(id: ID!): String!
 
         crearServicio(
             tipoServicio: String!
@@ -124,7 +125,7 @@ const typeDefs = gql`
             valor: Int
         ): Servicio!
 
-        eliminarServicio(id: ID!): Servicio!
+        eliminarServicio(id: ID!): String!
 
         crearTurno(
             turno: Int!
@@ -139,7 +140,7 @@ const typeDefs = gql`
             sucursal: String
         ): Turno!
 
-        eliminarTurno(id: ID!): Turno!
+        eliminarTurno(id: ID!): String!
 
         crearTransaccion(
             codigoVale: ID!
@@ -154,7 +155,7 @@ const typeDefs = gql`
             ubicacion: String
         ): Transaccion!
 
-        eliminarTransaccion(id: ID!): Transaccion!
+        eliminarTransaccion(id: ID!): String!
 
         crearAuditoria(
             usuarioId: ID!
@@ -169,7 +170,7 @@ const typeDefs = gql`
             periodo: String
         ): Auditoria!
 
-        eliminarAuditoria(id: ID!): Auditoria!
+        eliminarAuditoria(id: ID!): String!
 
     }
 
@@ -274,13 +275,19 @@ const resolvers = {
         },
 
         eliminarUsuario: async (_, { id }, {token}) => {
-            const { data: usuarioAPI } = await axios.delete(`${URL_API}/usuarios/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: usuarioAPI } = await axios.delete(`${URL_API}/usuarios/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return usuarioAPI;
+                return "Usuario eliminado"
+            }
+
+            catch (e) {
+                return `Error al eliminar ${e}`
+            }
         },
         // Vales
         crearVale: async (_, { tipoServicio, estado, fechaEmision, fechaUso, ubicacionUso, usuarioAutorizado }, { token }) => {
@@ -318,13 +325,18 @@ const resolvers = {
         },
 
         eliminarVale: async (_, { id }, { token }) => {
-            const { data: valeAPI } = await axios.delete(`${URL_API}/vales/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: valeAPI } = await axios.delete(`${URL_API}/vales/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return valeAPI;
+                return "Vale eliminado"
+            } catch (e) {
+                return `Error al eliminar ${e}`
+            }
+            
         },
 
         //Servicios
@@ -357,13 +369,17 @@ const resolvers = {
         },
 
         eliminarServicio: async (_, { id }, { token }) => {
-            const { data: servicioAPI } = await axios.delete(`${URL_API}/servicios/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: servicioAPI } = await axios.delete(`${URL_API}/servicios/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return servicioAPI;
+                return servicioAPI;
+            } catch (e) {
+                return `Error al eliminar ${e}`
+            }
         },
 
         // Turnos
@@ -396,13 +412,17 @@ const resolvers = {
         },
 
         eliminarTurno: async (_, { id }, { token }) => {
-            const { data: turnoAPI } = await axios.delete(`${URL_API}/turnos/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: turnoAPI } = await axios.delete(`${URL_API}/turnos/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return turnoAPI;
+                return "Turno eliminado"
+            } catch (e) {
+                return `Error al eliminar ${e}`
+            }
         },
 
         // Transacciones
@@ -435,13 +455,17 @@ const resolvers = {
         },
 
         eliminarTransaccion: async (_, { id }, { token }) => {
-            const { data: transaccionAPI } = await axios.delete(`${URL_API}/transacciones/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: transaccionAPI } = await axios.delete(`${URL_API}/transacciones/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return transaccionAPI
+                return "Transaccion eliminada"
+            } catch (e) {
+                return `Error al eliminar ${e}`
+            }
         },
 
         // Auditorias
@@ -487,13 +511,17 @@ const resolvers = {
         },
 
         eliminarAuditoria: async (_, { id }, { token }) => {
-            const { data: auditoriaAPI } = await axios.delete(`${URL_API}/auditorias/${id}`, {
-                headers: {
-                    'token': token
-                }
-            });
+            try {
+                const { data: auditoriaAPI } = await axios.delete(`${URL_API}/auditorias/${id}`, {
+                    headers: {
+                        'token': token
+                    }
+                });
 
-            return auditoriaAPI;
+                return "Auditoria eliminada"
+            } catch (e) {
+                return `Error al eliminar ${e}`
+            }
         }
     },
 
